@@ -31,4 +31,5 @@ class Food(Entity):
         return self.name
 
     def update(self, entities: list[Entity]):
+        # Todo - implement this
         pass

@@ -19,10 +19,8 @@ class Player(Entity):
 
     # Set position and clamp within screen size
     def update(self, state):
-        self.move()
-        keys = pygame.key.get_pressed()
-        if keys[K_SPACE]:
-            self.interact_nearest(state)
+        # Todo - implement this
+        pass
 
     def move(self):
         keys = pygame.key.get_pressed()
@@ -39,17 +37,9 @@ class Player(Entity):
         self.pos = self.hitbox.topleft
 
     def interact_nearest(self, entities):
-        threshold_interact_distance = 100
-        nearest_entity, nearest_distance = get_nearest_entity(self, entities)
-
-        if type(nearest_entity) is Food:
-            if nearest_distance <= threshold_interact_distance:
-                self.food_retrieved = nearest_entity.name
-        elif type(nearest_entity) is Customer and self.food_retrieved:
-            nearest_entity.interact(self.food_retrieved)
-            self.food_retrieved = None
+        # Todo - implement this
+        pass
 
     def draw(self, screen: pygame.Surface):
-        screen.blit(self.sprite, self.hitbox.topleft)
-        if self.food_retrieved is not None:
-            screen.blit(FOODS[self.food_retrieved], self.hitbox.topleft)
+        # Todo - implement this
+        pass

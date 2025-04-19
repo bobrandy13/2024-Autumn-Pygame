@@ -65,18 +65,8 @@ class Customer(Entity):
             screen.blit(FOODS[self.order], (statex - 50, statey - 25))
 
     def update(self, entities: list[Entity]):
-        if self.state == CState.WAITING_FOR_FOOD:
-            self.cur_timer += 1
-            if self.cur_timer >= self.cur_timeout:
-                self.leave(True)
-
-        elif self.state == CState.EATING:
-            self.cur_timer += 1
-            if self.cur_timer >= self.cur_timeout:
-                self.leave(False)
-
-        elif self.state == CState.LEAVING:
-            self.destroy(entities)
+        # Todo - implement this
+        pass
 
     def receive_order(self):
         self.state = CState.WAITING_FOR_FOOD
@@ -84,30 +74,21 @@ class Customer(Entity):
         self.cur_timer = 0
 
     def start_eating(self):
-        self.state = CState.EATING
-        self.cur_timeout = EATING_TIMEOUT
-        self.cur_timer = 0
+        # Todo - implement this
+        pass
 
     def leave(self, angry: bool):
-        self.state = CState.LEAVING
-        if angry == True:
-            self.player.score -= 1
-        else:
-            self.player.score += 1
-
-        self.cur_timeout = 0
-        self.cur_timer = 0
+        # Todo - implement this
+        pass
 
     def destroy(self, entities: list[Entity]):
-        self.time_at_leaving = time.time()
-        entities.remove(self)
+        # Todo - implement this
+        pass
 
     def interact(self, food_retrieved):
-        if self.state is CState.WAITING_FOR_FOOD:
-            self.try_receive_order(food_retrieved)
+        # Todo - implement this
+        pass
 
     def try_receive_order(self, food_retrieved) -> bool:
-        if self.order == food_retrieved:
-            self.start_eating()
-        else:
-            self.leave(True)
+        # Todo - implement this
+        pass
