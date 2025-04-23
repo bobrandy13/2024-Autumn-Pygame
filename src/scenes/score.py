@@ -2,7 +2,7 @@ import pygame
 import src.constants as constants
 from src.scenes.button import Button
 
-def score(screen, current_score):
+def score(screen, current_score, leaderboard):
     # Background
     background_image = pygame.image.load('spec/images/score_background.jpeg').convert()
     background_image = pygame.transform.scale(background_image, (screen.get_width(), screen.get_height()))
@@ -17,8 +17,25 @@ def score(screen, current_score):
     score_text = font.render(f'Score: {current_score}', True, constants.RED_BLACK)
     score_pos = (constants.CENTER_X  - 260, 180)
 
+    # Leaderbaooard text
+    leaderboard_font = pygame.font.SysFont("Palatino", 30)
+    score_font = pygame.font.SysFont("Palatino", 20)
+    leaderboard.seek(0)
+    leaderboard_text = leaderboard_font.render(f"Leaderboard: ", True, constants.RED_BLACK)
+    scores = leaderboard.read().split('|')
+
+    prev_y = 50
+    scores_text_and_pos = [
+        (leaderboard_font.render(f"{position}: {score}", True, constants.RED_BLACK),
+            (constants.MAX_X - 50, (prev_y := prev_y + 30))
+         )
+        for position, score in enumerate(sorted(scores)[::-1][:5])
+    ]
+        
+    leaderboard_pos = (constants.MAX_X - 50, 50)
+
     # Buttons
-    menu_button = Button("Menu", constants.CENTER_X  - 50, 525, 140, 40)
+    menu_button = Button("Menu", constants.CENTER_X  - 60, 525, 140, 40)
     play_button = Button("Play Again!", constants.CENTER_X  - 80, 425, 200, 40)
 
     while True:
@@ -36,6 +53,10 @@ def score(screen, current_score):
 
         screen.blit(game_over_text, game_over_pos)
         screen.blit(score_text, score_pos)
+        screen.blit(leaderboard_text, leaderboard_pos)
+
+        for score_text, pos in scores_text_and_pos: 
+            screen.blit(score_text,pos)
 
         menu_button.draw(screen)
         play_button.draw(screen)

@@ -97,6 +97,7 @@ state = {
 
 # Everything is rendered from the top to the bottom, so we start off by drawing
 # the window, then background, our entities, then our user interface (ie the score/timer text)
+leaderboard = open("leaderboard.txt", "a+")
 
 try:
     while state[RUNNING]:
@@ -120,11 +121,14 @@ try:
         effects.update(entities, state)
 
         # Render
-        handle_scenes(screen, player, entities, background_image, state)
+        handle_scenes(screen, player, entities, background_image, state, leaderboard)
         pygame.display.update()
 
         # Cap the frame rate
         state[CLOCK].tick(60)
+except Exception as e: 
+    print(e) 
 finally:
+    leaderboard.close()
     pygame.quit()
     sys.exit()
